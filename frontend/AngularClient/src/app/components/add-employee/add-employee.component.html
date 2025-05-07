@@ -1,0 +1,88 @@
+<div>
+    <div class="alert alert-info head align-items-center d-flex justify-content-center" role="alert">
+        @if (this.currentId==0){<span>Add Employee</span>}
+        @if (this.currentId!=0){<span>Edit Employee</span>}
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="w-50 ">
+            <form [formGroup]="addEmployeeForm" (submit)="addOrEditEmployee()">
+                <div class="form-group mb-3">
+                    <input type="hidden" class="form-control" formControlName="id" id="id" name="id" [value]="currentId"
+                        placeholder="id">
+                    <input type="text" class="form-control" formControlName="firstName" id="firstName" name="firstName"
+                        placeholder="FirstName">
+                    @if(addEmployeeForm.get('firstName')?.touched && addEmployeeForm.get('firstName')?.invalid){
+                    <div class="text-danger">
+                        @if(addEmployeeForm.get('firstName')?.errors?.['required']){
+                        <p>first name is Required</p>
+                        }
+                        @if(addEmployeeForm.get('firstName')?.errors?.['pattern']){
+                        <p>first name must be between 3 to 10 characters</p>
+
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group mb-3">
+                    <input type="text" class="form-control" formControlName="lastName" id="lastName" name="lastName"
+                        placeholder="LastName">
+                    @if(addEmployeeForm.get('lastName')?.touched && addEmployeeForm.get('lastName')?.invalid){
+                    <div class="text-danger">
+                        @if(addEmployeeForm.get('lastName')?.errors?.['required']){
+                        <p>last name is Required</p>
+                        }
+                        @if(addEmployeeForm.get('lastName')?.errors?.['pattern']){
+                        <p>last name must be between 3 to 10 characters</p>
+
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group mb-3">
+                    <input type="Email" class="form-control" id="email" formControlName="email" name="email"
+                        placeholder="Email">
+                    @if(addEmployeeForm.get('email')?.touched && addEmployeeForm.get('email')?.invalid){
+                    <div class="text-danger">
+                        @if(addEmployeeForm.get('email')?.errors?.['required']){
+                        <p>email is Required</p>
+                        }
+                        @if(addEmployeeForm.get('email')?.errors?.['email']){
+                        <p>Email not invalid</p>
+
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group mb-3">
+                    <input type="text" class="form-control" id="position" formControlName="position" name="position"
+                        placeholder="position">
+                    @if(addEmployeeForm.get('position')?.touched && addEmployeeForm.get('position')?.invalid){
+                    <div class="text-danger">
+                        @if(addEmployeeForm.get('position')?.errors?.['required']){
+                        <p>position is Required</p>
+                        }
+
+                    </div>
+                    }
+                </div>
+                <label for="">upload your image</label>
+                <input type="file" formControlName="imageUrl" class="form-control" (change)="onFileSelected($event)">
+
+                <div class="d-flex mt-3">
+                    @if (this.currentId==0){ <button type="submit" class="btn btn-primary add"
+                        [disabled]="addEmployeeForm.invalid">Add</button>
+                    }
+
+                    @if (this.currentId!=0){ <button type="submit" class="btn btn-primary add"
+                        [disabled]="addEmployeeForm.invalid">Edit</button>
+                    }
+                    <button type="button" class="btn btn-danger" routerLink="/employeelist">Back to list</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
